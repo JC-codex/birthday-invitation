@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Happy 1st Birthday Aiyesha Fae & Sofia Maxeen!</title>
+  <style>
+    :root{--bg:#fff8f0;--card:#ffffff;--accent:#ff9bb3;--text:#2b2b2b}
+    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;margin:0;background:linear-gradient(135deg,#fff8f0, #fff1f8);color:var(--text);display:flex;align-items:center;justify-content:center;height:100vh}
+    .container{padding:24px;text-align:center}
+    h1{margin:0 0 12px;font-size:1.6rem}
+    p.lead{margin:0 0 18px;color:#6b6b6b}
+    button.btn{background:var(--accent);border:0;color:white;padding:12px 20px;border-radius:12px;font-weight:600;cursor:pointer;box-shadow:0 6px 16px rgba(0,0,0,0.12)}
+    button.btn:active{transform:translateY(1px)}
+
+    /* Modal */
+    .modal-backdrop{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.45);z-index:40}
+    .modal{background:var(--card);border-radius:14px;max-width:560px;width:90%;padding:18px;box-shadow:0 10px 40px rgba(0,0,0,0.2);text-align:left}
+    .modal header{display:flex;align-items:center;justify-content:space-between}
+    .modal h2{margin:0;font-size:1.2rem}
+    .close-btn{background:transparent;border:0;font-size:1.2rem;cursor:pointer}
+    .invite-body{margin-top:12px}
+    .photo{width:100%;height:auto;object-fit:cover;border-radius:10px;border:4px solid rgba(255,155,179,0.08)}
+    .invite-text{margin-top:12px}
+    .small{font-size:0.9rem;color:#555}
+    .actions{display:flex;gap:10px;margin-top:12px}
+    .actions a{display:inline-block;text-decoration:none;padding:8px 12px;border-radius:10px;background:#f2f2f2;color:#222}
+
+    @media (max-width:420px){.photo{height:auto}}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🎉 Happy 1st Birthday</h1>
+    <h1>Aiyesha Fae & Sofia Maxeen!</h1>
+    <p class="lead">Double the giggles, double the fun — come celebrate with us!</p>
+    <button id="openInvite" class="btn" aria-haspopup="dialog">Open Invitation</button>
+  </div>
+
+  <!-- Modal / Invitation -->
+  <div id="backdrop" class="modal-backdrop" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal" role="document">
+      <header>
+        <h2>You're invited 🎂</h2>
+        <button id="closeBtn" class="close-btn" aria-label="Close invitation">✕</button>
+      </header>
+
+      <div class="invite-body">
+        <img id="invitePhoto" class="photo" src="1000004925.jpg" alt="Birthday invitation">
+
+        <div class="invite-text">
+          <p class="small"><strong>When:</strong> Saturday, October 26, 12:00 PM</p>
+          <p class="small"><strong>Where:</strong> Joble Mote’s Residence, Brgy. Anastacia, Tiaong, Quezon</p>
+          <p style="margin-top:10px;">Join us to celebrate the sweet first birthday of Sofia & Aiyesha — twice the fun, double the joy!</p>
+        </div>
+
+        <div class="actions">
+          <a id="downloadInvite" href="#" download="Aiyesha_Sofia_invite.html">Download Invitation</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const openBtn = document.getElementById('openInvite');
+    const backdrop = document.getElementById('backdrop');
+    const closeBtn = document.getElementById('closeBtn');
+    const photo = document.getElementById('invitePhoto');
+    const downloadInvite = document.getElementById('downloadInvite');
+
+    function showModal() {
+      backdrop.style.display = 'flex';
+      backdrop.setAttribute('aria-hidden', 'false');
+
+      const html = `<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Invitation - Aiyesha & Sofia</title>
+</head>
+<body>
+  <h1>Happy 1st Birthday Aiyesha Fae & Sofia Maxeen!</h1>
+  <img src="${photo.src}" style="max-width:100%;height:auto">
+  <p>When: Saturday, October 26, 12:00 PM</p>
+  <p>Where: Joble Mote’s Residence, Brgy. Anastacia, Tiaong, Quezon</p>
+</body>
+</html>`;
+
+      const blob = new Blob([html], { type: 'text/html' });
+      const url = URL.createObjectURL(blob);
+      downloadInvite.href = url;
+    }
+
+    function hideModal() {
+      backdrop.style.display = 'none';
+      backdrop.setAttribute('aria-hidden', 'true');
+    }
+
+    openBtn.addEventListener('click', showModal);
+    closeBtn.addEventListener('click', hideModal);
+    backdrop.addEventListener('click', (e) => { if (e.target === backdrop) hideModal(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') hideModal(); });
+
+    document.addEventListener('focus', function (event) {
+      if (backdrop.style.display === 'flex' && !backdrop.contains(event.target)) {
+        event.stopPropagation();
+        closeBtn.focus();
+      }
+    }, true);
+  </script>
+</body>
+</html>
